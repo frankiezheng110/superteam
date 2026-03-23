@@ -62,22 +62,22 @@ To use `/superteam:team-execute`, enable Claude Code native agent teams first:
 
 ## Primary Commands
 
-- `/superteam:go <task>` - run the full seven-stage workflow
-- `/superteam:clarify <task>` - clarify scope and success criteria
-- `/superteam:design <task>` - write or refine the design artifact
-- `/superteam:plan <task>` - produce the executable plan artifact
-- `/superteam:execute <task>` - implement from an approved plan
-- `/superteam:review <task>` - run the dedicated review gate
-- `/superteam:verify <task>` - run an independent verification pass
-- `/superteam:finish <task>` - package the final handoff
-- `/superteam:inspect [--mid-run|--cross-run|task-slug]` - run system health diagnosis
-- `/superteam:team-execute <task>` - use native agent teams for parallel execution
-- `/superteam:design-consultation <task>` - generate a design-system input with aesthetic intelligence
-- `/superteam:careful <task>` - activate caution mode for high-risk work
-- `/superteam:guard <task>` - activate maximum safety with boundary discipline
-- `/superteam:strategic-compact` - suggest context compaction at workflow checkpoints
-- `/superteam:writing-skills <skill need>` - create, refine, or validate a SuperTeam skill
-- `/superteam:status` - inspect current run status
+- `/superteam:go <task>` - run the full seven-stage workflow（运行完整的七阶段工作流）
+- `/superteam:clarify <task>` - clarify scope and success criteria（明确范围和成功标准）
+- `/superteam:design <task>` - write or refine the design artifact（编写或完善设计成果）
+- `/superteam:plan <task>` - produce the executable plan artifact（生成可执行计划文件）
+- `/superteam:execute <task>` - implement from an approved plan（从已批准的计划中实施）
+- `/superteam:review <task>` - run the dedicated review gate（运行专门的审查门）
+- `/superteam:verify <task>` - run an independent verification pass（运行独立的验证过程）
+- `/superteam:finish <task>` - package the final handoff（打包最终交接）
+- `/superteam:inspect [--mid-run|--cross-run|task-slug]` - run system health diagnosis（运行系统健康诊断）
+- `/superteam:team-execute <task>` - use native agent teams for parallel execution（使用本地代理团队进行并行执行）
+- `/superteam:design-consultation <task>` - generate a design-system input with aesthetic intelligence（生成具有美学智能的设计系统输入）
+- `/superteam:careful <task>` - activate caution mode for high-risk work（激活高危险工作时的谨慎模式）
+- `/superteam:guard <task>` - activate maximum safety with boundary discipline（激活最大安全与边界纪律）
+- `/superteam:strategic-compact` - suggest context compaction at workflow checkpoints（建议在工作流检查点进行上下文压缩）
+- `/superteam:writing-skills <skill need>` - create, refine, or validate a SuperTeam skill（创建、改进或验证一个超级团队技能）
+- `/superteam:status` - inspect current run status（检查当前运行状态）
 
 ## Quick Start Example
 
