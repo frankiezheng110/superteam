@@ -1,0 +1,19 @@
+{
+  "name": "superteam",
+  "version": "3.3.0",
+  "description": "Project delivery control layer with seven-stage discipline, structured agent-team collaboration, formal UI Intent Pipeline, and deep frontend aesthetics intelligence for Claude Code",
+  "author": {
+    "name": "OpenCode"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "workflow",
+    "agent-team",
+    "planning",
+    "verification",
+    "frontend-aesthetics",
+    "ui-design"
+  ]
+}
