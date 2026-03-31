@@ -1,0 +1,19 @@
+{
+  "name": "superteam",
+  "version": "4.5.0",
+  "description": "Seven-stage delivery plugin with feature checklist and per-feature TDD loop",
+  "author": {
+    "name": "OpenCode"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "workflow",
+    "agent-team",
+    "planning",
+    "verification",
+    "frontend-aesthetics",
+    "ui-design"
+  ]
+}
