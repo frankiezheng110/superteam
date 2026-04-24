@@ -1,0 +1,20 @@
+{
+  "$schema": "https://claude.ai/schemas/plugin-marketplace.json",
+  "name": "superteam",
+  "metadata": {
+    "name": "SuperTeam",
+    "description": "Seven-stage delivery plugin with hook-level hard constraints",
+    "version": "4.6.0",
+    "author": {
+      "name": "frankiezheng110",
+      "url": "https://github.com/frankiezheng110"
+    }
+  },
+  "plugins": [
+    {
+      "name": "superteam",
+      "source": "./V4.6.0_hook强约束",
+      "description": "Seven-stage delivery plugin for Claude Code with hook-level hard constraints (V4.6.0)"
+    }
+  ]
+}

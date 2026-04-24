@@ -1,0 +1,22 @@
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Test runtime artifacts
+.superteam/
+V4.6.0_hook强约束/.superteam/
+V4.6.0_hook强约束/tests/REPORT.md
+V4.6.0_hook强约束/tests/__pycache__/
+V4.6.0_hook强约束/hooks/**/__pycache__/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
