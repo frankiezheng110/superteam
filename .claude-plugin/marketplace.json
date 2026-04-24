@@ -8,7 +8,7 @@
   "metadata": {
     "name": "SuperTeam",
     "description": "Seven-stage delivery plugin with hook-level hard constraints",
-    "version": "4.6.0",
+    "version": "4.6.1",
     "author": {
       "name": "frankiezheng110",
       "url": "https://github.com/frankiezheng110"
@@ -17,8 +17,8 @@
   "plugins": [
     {
       "name": "superteam",
-      "source": "./V4.6.0_hook强约束",
-      "description": "Seven-stage delivery plugin for Claude Code with hook-level hard constraints (V4.6.0)"
+      "source": "./V4.6.1_hook自动注册",
+      "description": "Seven-stage delivery plugin for Claude Code with hook-level hard constraints (V4.6.1 — hooks auto-register via .claude-plugin/hooks.json)"
     }
   ]
 }
