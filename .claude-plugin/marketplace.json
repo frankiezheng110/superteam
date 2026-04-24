@@ -1,6 +1,10 @@
 {
   "$schema": "https://claude.ai/schemas/plugin-marketplace.json",
   "name": "superteam",
+  "owner": {
+    "name": "frankiezheng110",
+    "url": "https://github.com/frankiezheng110"
+  },
   "metadata": {
     "name": "SuperTeam",
     "description": "Seven-stage delivery plugin with hook-level hard constraints",
