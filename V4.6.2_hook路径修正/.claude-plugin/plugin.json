@@ -1,0 +1,22 @@
+{
+  "name": "superteam",
+  "version": "4.6.2",
+  "description": "Seven-stage delivery plugin for Claude Code with hook-level hard constraints: physically enforces TDD red/green, plan MUST accounting, commit gate, and inspector continuity — no reliance on AI self-discipline.",
+  "author": {
+    "name": "frankiezheng110"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "workflow",
+    "agent-team",
+    "planning",
+    "verification",
+    "tdd",
+    "hook-enforcement",
+    "frontend-aesthetics",
+    "ui-design"
+  ],
+  "homepage": "https://github.com/frankiezheng110/superteam"
+}
