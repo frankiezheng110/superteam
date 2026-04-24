@@ -8,7 +8,7 @@
   "metadata": {
     "name": "SuperTeam",
     "description": "Seven-stage delivery plugin with hook-level hard constraints",
-    "version": "4.6.3",
+    "version": "4.6.4",
     "author": {
       "name": "frankiezheng110",
       "url": "https://github.com/frankiezheng110"
@@ -17,8 +17,8 @@
   "plugins": [
     {
       "name": "superteam",
-      "source": "./V4.6.3_项目根锚定",
-      "description": "Seven-stage delivery plugin for Claude Code with hook-level hard constraints (V4.6.3 — hook resolves .superteam/ from $CLAUDE_PROJECT_DIR, no longer misfires on unrelated sessions)"
+      "source": "./V4.6.4_tdd初始化修复",
+      "description": "Seven-stage delivery plugin for Claude Code with hook-level hard constraints (V4.6.4 — PostToolUse auto-inits active_feature_id from execution.md, fixes V4.6.3 TDD gate deadlock that blocked all production code edits in execute stage)"
     }
   ]
 }
