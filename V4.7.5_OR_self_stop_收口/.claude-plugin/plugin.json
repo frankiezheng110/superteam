@@ -1,0 +1,22 @@
+{
+  "name": "superteam",
+  "version": "4.7.5",
+  "description": "V4.7.5 OR self-stop 收口 — 状态机驱动硬约束。stop.py 删除 V4.7.2 `spawned_in_current_turn` 启发式（漏洞: spawn → 拿结果 → dump a/b/c → 停下）改用纯状态机判定: mode=active && stage∈{execute,review,verify} && !is_subagent_running → block。配套 gate_main_session_scope 加状态机文件 BLOCK 列表（mode.json/active-subagent.json/turn.json/spawn-log.jsonl/各 *-log.jsonl 任何 agent 不得 Edit/Write）防止状态机伪造。逻辑极简：状态机说还在跑就不允许停下，除非状态机出错 OR 永远跑不掉。删除 blocker_summary 逃生暗门、anti-pattern 关键词扫描、verdict 卡死检测、stop_hook_active 滥用记录等启发式垃圾。62/62 测试通过（含 17 项新增 V4.7.5 测试）。",
+  "author": {
+    "name": "frankiezheng110"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "workflow",
+    "agent-team",
+    "planning",
+    "verification",
+    "tdd",
+    "hook-enforcement",
+    "frontend-aesthetics",
+    "ui-design"
+  ],
+  "homepage": "https://github.com/frankiezheng110/superteam"
+}

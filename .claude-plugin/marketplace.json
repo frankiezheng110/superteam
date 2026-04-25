@@ -8,7 +8,7 @@
   "metadata": {
     "name": "SuperTeam",
     "description": "Seven-stage delivery plugin with main-session-as-orchestrator architecture and hook-enforced trust chain",
-    "version": "4.7.4",
+    "version": "4.7.5",
     "author": {
       "name": "frankiezheng110",
       "url": "https://github.com/frankiezheng110"
@@ -17,8 +17,8 @@
   "plugins": [
     {
       "name": "superteam",
-      "source": "./V4.7.4_TierB收口",
-      "description": "V4.7 main-session-as-orchestrator with PLAN Tier A done in V4.7.3 (self-stop/stage-skip/artifact-forge all hook-blocked) and PLAN Tier B done in V4.7.4. V4.7.4 adds: per-role Output Discipline rules across reviewer/verifier/writer/planner/architect/executor; Stop-hook escalation diagnostic on 3+ gate-block clusters in 60s; three new slash commands /superteam:debug, /superteam:repair, /superteam:doctor for triage and recovery. Only PLAN Tier C1 - the end-to-end pytest trust-chain suite - remains, and that is testing infrastructure, not a bug-fix backlog."
+      "source": "./V4.7.5_OR_self_stop_收口",
+      "description": "V4.7.5 OR self-stop 收口 — 状态机驱动硬约束。删除 V4.7.2 spawned_in_current_turn 启发式（漏洞: spawn → 拿结果 → dump a/b/c → 停下）改用纯状态机判定: mode=active && stage∈{execute,review,verify} && !is_subagent_running → block。配套 gate_main_session_scope 加状态机文件 BLOCK 列表防止伪造。逻辑极简: 状态机说还在跑就不允许停下，除非状态机自身出错 OR 永远跑不掉。删除 blocker_summary 逃生暗门、anti-pattern 关键词扫描、verdict 卡死检测、stop_hook_active 滥用记录等启发式垃圾。62/62 测试通过。"
     }
   ]
 }
