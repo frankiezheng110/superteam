@@ -8,7 +8,7 @@
   "metadata": {
     "name": "SuperTeam",
     "description": "Seven-stage delivery plugin with main-session-as-orchestrator architecture and hook-enforced trust chain",
-    "version": "4.7.5",
+    "version": "4.7.6",
     "author": {
       "name": "frankiezheng110",
       "url": "https://github.com/frankiezheng110"
@@ -17,8 +17,8 @@
   "plugins": [
     {
       "name": "superteam",
-      "source": "./V4.7.5_OR_self_stop_收口",
-      "description": "V4.7.5 OR self-stop 收口 — 状态机驱动硬约束。删除 V4.7.2 spawned_in_current_turn 启发式（漏洞: spawn → 拿结果 → dump a/b/c → 停下）改用纯状态机判定: mode=active && stage∈{execute,review,verify} && !is_subagent_running → block。配套 gate_main_session_scope 加状态机文件 BLOCK 列表防止伪造。逻辑极简: 状态机说还在跑就不允许停下，除非状态机自身出错 OR 永远跑不掉。删除 blocker_summary 逃生暗门、anti-pattern 关键词扫描、verdict 卡死检测、stop_hook_active 滥用记录等启发式垃圾。62/62 测试通过。"
+      "source": "./V4.7.6_V475回归修复",
+      "description": "V4.7.6 修 V4.7.5 三个 hook 回归 — 不动 V4.7.5 OR self-stop 核心机制（状态机三条件判定 / 删除逃生暗门 / 状态机文件 BLOCK 列表全保留），仅在兼容层补三处缺口: (1) validator_plan 兼容多文件 plan/ 目录（V4.6 结构）— 没 plan.md 就读 plan/*.md 聚合后走相同字段/Tier/MUST/TDD 检查; (2) state.current_slug() 优先 mode.json.active_task_slug, fallback current-run.json.task_slug — 解决 V4.6→V4.7 升级项目两值漂移; (3) gate_stage_advance finish 阶段同时接受 verify.md 和 verification.md。69/69 测试全绿（V4.7.5 62 + V4.7.6 7 兼容性回归）。完全向后兼容: 不删除任何 V4.7.5 检查 / 不放宽任何 V4.7.5 拦截 / 仅扩大合规输入识别范围。"
     }
   ]
 }
