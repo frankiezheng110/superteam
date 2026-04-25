@@ -1,0 +1,22 @@
+{
+  "name": "superteam",
+  "version": "4.7.0",
+  "description": "Seven-stage delivery plugin with main-session-as-orchestrator architecture. V4.7.0 moves OR role from a subagent (which physically cannot spawn other subagents) to the main session, then enforces specialist delegation via hook-level write blocking, spawn-log audit, and a persistent mode.json state machine. Trust chain is enforced on disk, not by AI self-discipline.",
+  "author": {
+    "name": "frankiezheng110"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "workflow",
+    "agent-team",
+    "planning",
+    "verification",
+    "tdd",
+    "hook-enforcement",
+    "frontend-aesthetics",
+    "ui-design"
+  ],
+  "homepage": "https://github.com/frankiezheng110/superteam"
+}

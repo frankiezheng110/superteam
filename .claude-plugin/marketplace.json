@@ -7,8 +7,8 @@
   },
   "metadata": {
     "name": "SuperTeam",
-    "description": "Seven-stage delivery plugin with hook-level hard constraints",
-    "version": "4.6.4",
+    "description": "Seven-stage delivery plugin with main-session-as-orchestrator architecture and hook-enforced trust chain",
+    "version": "4.7.0",
     "author": {
       "name": "frankiezheng110",
       "url": "https://github.com/frankiezheng110"
@@ -17,8 +17,8 @@
   "plugins": [
     {
       "name": "superteam",
-      "source": "./V4.6.4_tdd初始化修复",
-      "description": "Seven-stage delivery plugin for Claude Code with hook-level hard constraints (V4.6.4 — PostToolUse auto-inits active_feature_id from execution.md, fixes V4.6.3 TDD gate deadlock that blocked all production code edits in execute stage)"
+      "source": "./V4.7.0_主会话即OR_信任链重建",
+      "description": "V4.7.0 — moves the Orchestrator role from a subagent (which physically cannot spawn other subagents in Claude Code's runtime) to the main session. Adds a persistent mode.json state machine, hook-level main-session write blocking on substantive work files, append-only spawn-log audit, and three new slash commands (/superteam:go, /superteam:end, /superteam:status). Trust chain is enforced on disk, not by AI self-discipline."
     }
   ]
 }
