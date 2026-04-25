@@ -2,7 +2,7 @@
 
 Seven-stage delivery plugin for [Claude Code](https://claude.com/claude-code) with **hook-level hard constraints** and a **main-session-as-orchestrator** trust chain — so delivery quality no longer depends on AI self-discipline.
 
-**Version**: 4.7.3
+**Version**: 4.7.4
 **License**: MIT
 
 ---
@@ -72,7 +72,7 @@ Upgrade:
 .
 ├── .claude-plugin/
 │   └── marketplace.json                # marketplace manifest (points to active version source)
-├── V4.7.3_stage推进gate与产物校验/      # active plugin source
+├── V4.7.4_TierB收口/                   # active plugin source
 │   ├── .claude-plugin/plugin.json
 │   ├── agents/                         # specialist subagents (orchestrator subagent is DEPRECATED)
 │   ├── framework/                      # contracts incl. main-session-orchestrator.md

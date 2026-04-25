@@ -1,12 +1,13 @@
 # SuperTeam Version Index
 
-**Current**: V4.7.3 — see `V4.7.3_stage推进gate与产物校验/VERSION.md` for the full release notes.
+**Current**: V4.7.4 — see `V4.7.4_TierB收口/VERSION.md` for the full release notes.
 
 ## Release timeline
 
 | Version | Date | One-liner |
 |---|---|---|
-| **V4.7.3** | 2026-04-25 | PLAN Tier A close-out — `gate_stage_advance` blocks current_stage advances missing spawn-log/artifact preconditions (review→executor+execution.md, verify→reviewer+review.md, finish→verifier+verification.md+verdict=PASS); `validator_frontmatter` audits specialist artifact provenance (auto-stamps when missing, logs gate-violations on forgery). With V4.7.2 done, all three rationalization-bypass routes — self-stop, stage-skip, artifact-forge — are now hook-blocked. |
+| **V4.7.4** | 2026-04-25 | PLAN Tier B close-out — per-role Output Discipline (reviewer/verifier/writer/planner/architect/executor); Stop-hook escalation diagnostic on 3+ gate-block clusters in 60s; three new slash commands /superteam:debug, /superteam:repair, /superteam:doctor for triage and recovery. Only Tier C1 (end-to-end pytest trust-chain suite) remains — testing infrastructure, not bug-fix backlog. |
+| V4.7.3 | 2026-04-25 | PLAN Tier A close-out — `gate_stage_advance` blocks current_stage advances missing spawn-log/artifact preconditions; `validator_frontmatter` audits specialist artifact provenance. All three rationalization-bypass routes — self-stop, stage-skip, artifact-forge — are now hook-blocked. |
 | V4.7.2 | 2026-04-25 | V4.7 conversation-flow + tool-set patches: Stop hook blocks main-session self-stop in execute-class stages when no specialist was spawned this turn; specialist subagents (designer/architect/executor/verifier/reviewer/researcher/debugger/test-engineer) get MCP tool whitelists (pencil/chrome-devtools/playwright/context7/gpt-researcher). |
 | V4.7.1 | 2026-04-25 | V4.7 closeout: active-subagent window restricted to `superteam:*`, corrupt mode.json now warns loudly, `/superteam:bypass` skill added, repo-root metadata resynced. |
 | V4.7.0 | 2026-04-25 | Architectural — moves Orchestrator from subagent to main Claude Code session; adds `mode.json` state machine, `gate_main_session_scope`, `spawn-log.jsonl`, `/superteam:end` and revamped `/superteam:go` / `/superteam:status`. Disk-enforced trust chain. |

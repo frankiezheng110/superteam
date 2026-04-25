@@ -1,0 +1,22 @@
+{
+  "name": "superteam",
+  "version": "4.7.4",
+  "description": "V4.7 main-session-as-orchestrator. PLAN Tier A close-out done in V4.7.3 (self-stop/stage-skip/artifact-forge all hook-blocked). V4.7.4 finishes PLAN Tier B engineering close-out: per-role Output Discipline rules added to reviewer/verifier/writer/planner/architect/executor (B1+C2); Stop-hook escalation diagnostic when 3+ gate violations cluster within 60s (B2); three new slash commands /superteam:debug, /superteam:repair, /superteam:doctor (B3-B5) for triage and recovery. Only PLAN Tier C1 remains - the end-to-end pytest suite that exercises the full hook trust chain - and that is testing infrastructure, not a bug-fix backlog.",
+  "author": {
+    "name": "frankiezheng110"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "workflow",
+    "agent-team",
+    "planning",
+    "verification",
+    "tdd",
+    "hook-enforcement",
+    "frontend-aesthetics",
+    "ui-design"
+  ],
+  "homepage": "https://github.com/frankiezheng110/superteam"
+}

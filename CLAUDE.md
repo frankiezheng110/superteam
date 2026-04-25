@@ -1,4 +1,4 @@
-# SuperTeam V4.7.3
+# SuperTeam V4.7.4
 
 ## 定位
 
@@ -21,7 +21,9 @@ V4.7.1 是 V4.7.0 的收口修复（active-subagent 仅 superteam:* / corrupt mo
 
 V4.7.2 加两件事：(1) **Stop hook 拦截 OR 自停** — `mode=active` + `current_stage∈{execute,review,verify,finish}` + 本轮无 spawn → block stop + 强制 OR 推进，关闭 V4.7.0/V4.7.1 在对话流层的覆盖盲区；(2) **specialist MCP 工具白名单** — designer/architect/executor/verifier/reviewer/researcher/debugger/test-engineer 加上 pencil/chrome-devtools/playwright/context7/gpt-researcher 白名单，让 specialist 真能用上 MCP server。
 
-V4.7.3 把 PLAN Tier A 三件套补完：(1) **gate_stage_advance** 拦 `.superteam/state/current-run.json` 的违规推进 — execute→review 必须先有 executor spawn + execution.md，review→verify 必须先有 reviewer spawn + review.md，verify→finish 必须先有 verifier spawn + verification.md 且 verdict=PASS；(2) **validator_frontmatter** 校验所有 specialist 产物（review.md/verify.md/polish.md/final.md/finish.md/retrospective.md/execution.md/test-plan.md）头部 frontmatter — 缺失则用 active-subagent.json 自动补，伪造（agent_id 不在 spawn-log）则写 gate-violations.jsonl 审计。"理性化绕过"剩余三条路径（自停/跳阶段/伪造产物）全部 hook 化。
+V4.7.3 把 PLAN Tier A 三件套补完：(1) **gate_stage_advance** 拦 `.superteam/state/current-run.json` 的违规推进 — execute→review 必须先有 executor spawn + execution.md，review→verify 必须先有 reviewer spawn + review.md，verify→finish 必须先有 verifier spawn + verification.md 且 verdict=PASS；(2) **validator_frontmatter** 校验所有 specialist 产物头部 frontmatter — 缺失则用 active-subagent.json 自动补，伪造（agent_id 不在 spawn-log）则写 gate-violations.jsonl 审计。"理性化绕过"剩余三条路径（自停/跳阶段/伪造产物）全部 hook 化。
+
+V4.7.4 把 PLAN Tier B 收完：(B1+C2) reviewer/verifier/writer/planner/architect/executor 6 个 specialist 加 **Output Discipline** 节，约束输出形式（reviewer 必须 file:line 引用 + 命令输出 / verifier 必须 verdict 三选一 + 配对证据 / writer 七节 final.md 结构 / planner MUST 项原子化 + 类别前缀 等）；(B2) Stop-hook **escalation 诊断** — 60s 内 ≥3 次 gate block 触发 systemMessage 提示用户三个出口；(B3-B5) 三个新 skill `/superteam:debug` `/superteam:repair` `/superteam:doctor` 用于排查 hook 误判 / 修复 mode.json corrupt / 综合健康检查。剩 Tier C1（端到端 pytest 信任链测试套件）是工程基础设施投入，不是 bug。
 
 ## 核心原则
 
@@ -68,7 +70,7 @@ GitHub marketplace 安装：
 /reload-plugins
 ```
 
-当前插件源（marketplace.json `plugins[0].source`）：`./V4.7.3_stage推进gate与产物校验`。
+当前插件源（marketplace.json `plugins[0].source`）：`./V4.7.4_TierB收口`。
 
 ## 运行时产物
 
