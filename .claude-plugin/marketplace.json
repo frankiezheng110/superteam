@@ -8,7 +8,7 @@
   "metadata": {
     "name": "SuperTeam",
     "description": "Seven-stage delivery plugin with main-session-as-orchestrator architecture and hook-enforced trust chain",
-    "version": "4.7.0",
+    "version": "4.7.1",
     "author": {
       "name": "frankiezheng110",
       "url": "https://github.com/frankiezheng110"
@@ -17,8 +17,8 @@
   "plugins": [
     {
       "name": "superteam",
-      "source": "./V4.7.0_主会话即OR_信任链重建",
-      "description": "V4.7.0 — moves the Orchestrator role from a subagent (which physically cannot spawn other subagents in Claude Code's runtime) to the main session. Adds a persistent mode.json state machine, hook-level main-session write blocking on substantive work files, append-only spawn-log audit, and three new slash commands (/superteam:go, /superteam:end, /superteam:status). Trust chain is enforced on disk, not by AI self-discipline."
+      "source": "./V4.7.1_主会话OR收口修复",
+      "description": "V4.7 main-session-as-orchestrator with V4.7.1 closeout fixes: active-subagent window now opens only for superteam:* specialists (non-SuperTeam subagents no longer give the main session a write bypass), corrupt/unknown-schema mode.json triggers a loud warning instead of a silent fall-through, and the missing /superteam:bypass slash command is now provided. Repo-root metadata (CLAUDE.md, README.md, VERSION.md) is back in sync with the active plugin version."
     }
   ]
 }

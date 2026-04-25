@@ -1,93 +1,101 @@
 # SuperTeam
 
-Seven-stage delivery plugin for [Claude Code](https://claude.com/claude-code) with **hook-level hard constraints**: physically enforces TDD red/green, plan MUST accounting, commit gate, and inspector continuity — so that delivery quality no longer depends on AI self-discipline.
+Seven-stage delivery plugin for [Claude Code](https://claude.com/claude-code) with **hook-level hard constraints** and a **main-session-as-orchestrator** trust chain — so delivery quality no longer depends on AI self-discipline.
 
-**Version**: 4.6.0
+**Version**: 4.7.1
 **License**: MIT
 
 ---
 
-## What V4.6.0 delivers
+## What V4.7 delivers
 
-V4.5.0 and earlier versions encoded quality rules in agent `.md` files and relied on the orchestrator to self-police. V4.5.0's post-mortem diagnosis (see `V4.6.0_hook强约束/DIAGNOSIS-V4.5.0-self-enforce-flaw.md`) showed this is unreliable: an orchestrator that rationalizes skipping review/verify has no external check.
+V4.6 and earlier shipped the orchestrator (OR) as a subagent. But Claude Code's runtime physically prevents subagents from spawning other subagents — the OR subagent therefore could not delegate to specialists, and the seven-stage trust chain was theatrical (one agent self-impersonating reviewer/verifier/writer).
 
-V4.6.0 moves enforcement from "rules in .md" to **Python hooks registered in `~/.claude/settings.json`**. Hooks run outside Claude's reasoning chain. A rationalization cannot skip them.
+V4.7 moves the OR role to the **main Claude Code session**, the only layer that can spawn subagents. Trust-chain enforcement now lives on disk, not in agent self-discipline:
 
-### What the hooks enforce (condensed)
+- A persistent `mode.json` state machine (active / ended) drives main-session identity, with schema versioning, atomic writes, and exactly four legitimate write paths (`/superteam:go`, `/superteam:end`, finish-stage user confirmation, hook heartbeat).
+- A PreToolUse gate (`gate_main_session_scope.py`) blocks the main session from directly writing substantive work files — code, `review.md`, `verify.md`, `polish.md`, `final.md`, `test-plan.md`, etc. The main session must spawn the corresponding specialist instead. OR-coordination artifacts (`activity-trace.md`, `task-list.md`, `decision-log.md`, `.superteam/state/*`) remain writable.
+- A PostToolUse hook writes `spawn-log.jsonl` (append-only) on every `Agent` call so spawn history cannot be forged.
+- SessionStart and UserPromptSubmit hooks reinject an OR identity banner on every user message, surviving auto-compact, usage-limit pause, and unexpected session resume.
+- Three new slash commands: `/superteam:go [task]`, `/superteam:end`, `/superteam:bypass <reason>`. `/superteam:status` is upgraded to surface mode + recent spawns + recent gate violations.
 
-- **TDD red/green state machine** — cannot edit production code before a failing test is recorded
-- **Plan MUST accounting** — every MUST item in `plan.md` must be present in `execution.md` with evidence; multi-category IDs (F- / UI- / API- / MIG-) tracked independently
-- **Orchestrator Decision Log** — spawning executor/reviewer requires a prior `## Orchestrator Decision — <Unit>` section; Unit id must be in plan and not already completed
-- **Entry Log reconciliation** — each downstream agent must restate plan MUST items verbatim; mismatches block the next spawn
-- **Commit gate** — `git commit` / `tag` / `push` is blocked unless `verification.md` carries `verdict: PASS`
-- **Finish (G7) closure** — `finish.md` must acknowledge each inspector problem, `retrospective.md` must have a non-empty `improvement_action`, rolling artifacts must be updated
-- **Plan progress tracking** — `plan-progress.json` records COMPLETE / PENDING / BLOCKED per MUST item; interrupted sessions resume cleanly without redoing finished work
-- **G4-G7 auto-chain** — after G3 user approval, stages 4 through 7 run without further user confirmation; all next-step directives carry "no user confirmation needed"
+V4.7.1 (this release) is a four-item closeout fix on V4.7.0:
 
-Full rule matrix: [`V4.6.0_hook强约束/framework/hook-enforcement-matrix.md`](V4.6.0_hook强约束/framework/hook-enforcement-matrix.md) (135 rules × 32 hook checkers, with self-check).
+1. The active-subagent window now opens **only** for `superteam:*` specialists (V4.7.0 leaked the bypass to any subagent).
+2. Corrupt or unknown-schema `mode.json` triggers a loud warning instead of a silent fall-through.
+3. The missing `/superteam:bypass` slash-command skill was added (CLI was already there).
+4. Repo-root metadata (this README, `CLAUDE.md`, `VERSION.md`) is brought back in sync with the active plugin version.
 
-## Install (Claude Code marketplace)
+V4.6's hook strictness is preserved: TDD red/green state machine, plan MUST accounting, commit gate, polish layer, inspector continuity. V4.7 only adds the OR identity dimension on top.
 
-```text
+## Install
+
+```
 /plugin marketplace add frankiezheng110/superteam
 /plugin install superteam@superteam
 /reload-plugins
 ```
 
-After installation, register the hooks once:
+Hooks register automatically (the plugin's `hooks/hooks.json` is loaded by Claude Code on plugin install — no manual `install.sh` step). The `install.ps1` / `install.sh` scripts remain in the version directory for users who clone the repo directly outside the marketplace flow.
 
-```text
-# Linux / macOS
-~/.claude/plugins/superteam/V4.6.0_hook强约束/install.sh
+Upgrade:
 
-# Windows (PowerShell)
-& "$HOME\.claude\plugins\superteam\V4.6.0_hook强约束\install.ps1"
 ```
-
-The install script merges SuperTeam's hook configuration into your `~/.claude/settings.json` (existing hooks are preserved) and runs `matrix_selfcheck.py` to confirm the 32 hook files are present and importable.
+/plugin marketplace update superteam
+/plugin update superteam
+/reload-plugins
+```
 
 ## Entry points
 
-- `/superteam:go` — start a fresh run
-- `/superteam:status` — show current run state
-- `/superteam:g1` / `/superteam:g2` / `/superteam:g3` — reopen a user approval gate
+- `/superteam:go [task]` — enter OR mode and start the seven-stage run
+- `/superteam:end` — exit OR mode (preserves run artifacts for audit)
+- `/superteam:status` — show mode, current stage, recent spawns, recent gate violations
+- `/superteam:bypass <reason>` — one-shot escape valve for misjudged hook blocks (audited)
+- `/superteam:g1` / `/superteam:g2` / `/superteam:g3` — reopen a user approval gate (supplement)
 
 ## Project layout
 
 ```
 .
 ├── .claude-plugin/
-│   └── marketplace.json           # marketplace manifest
-├── V4.6.0_hook强约束/             # active plugin source
-│   ├── .claude-plugin/
-│   │   └── plugin.json            # plugin manifest
-│   ├── agents/                    # agent definitions (orchestrator / reviewer / inspector / ...)
-│   ├── framework/                 # rule documentation + hook-enforcement-matrix.md
-│   ├── skills/                    # slash-command skills
-│   ├── hooks/                     # Python hook scripts (32 checkers + dispatchers)
-│   │   ├── dispatch/              # event entry points
-│   │   ├── validators/            # product-file validators
-│   │   ├── gates/                 # PreToolUse gate checkers
-│   │   ├── observers/             # PostToolUse observers (test runners, git, ...)
-│   │   ├── post_agent/            # post-agent entry-log + trace writer + chain
-│   │   ├── session/               # SessionStart injection + Stop guard
-│   │   ├── lib/                   # shared libraries (state, parser, trace, plan_progress, ...)
-│   │   └── matrix_selfcheck.py    # verify matrix ↔ hook files stay in sync
-│   ├── tests/                     # 44 smoke + integration test cases
-│   ├── install.ps1 / install.sh   # hook registration + launcher setup
-│   └── VERSION.md
+│   └── marketplace.json                # marketplace manifest (points to active version source)
+├── V4.7.1_主会话OR收口修复/             # active plugin source
+│   ├── .claude-plugin/plugin.json
+│   ├── agents/                         # specialist subagents (orchestrator subagent is DEPRECATED)
+│   ├── framework/                      # contracts incl. main-session-orchestrator.md
+│   ├── skills/                         # slash-command skills
+│   ├── commands/cli/mode_cli.py        # mode.json CLI (enter / end / status / bypass)
+│   ├── hooks/                          # Python hooks
+│   │   ├── dispatch/                   # event entry points
+│   │   ├── gates/                      # PreToolUse gate checkers (incl. gate_main_session_scope)
+│   │   ├── validators/                 # product-file validators
+│   │   ├── observers/                  # PostToolUse observers
+│   │   ├── post_agent/                 # post-Agent chain (writes spawn-log)
+│   │   ├── session/                    # SessionStart injection + Stop guard
+│   │   ├── lib/                        # shared libs (incl. mode_state.py)
+│   │   └── matrix_selfcheck.py
+│   ├── tests/
+│   ├── VERSION.md
+│   └── ...
+├── V4.6.4_tdd初始化修复/               # prior version (preserved per upgrade rule)
+├── V4.6.0_hook强约束/ ... V4.6.3_项目根锚定/
+├── V4.7.0_主会话即OR_信任链重建/       # immediate prior, kept for diffability
 ├── README.md
+├── CLAUDE.md
+├── VERSION.md
 └── LICENSE
 ```
 
-## Terminology (防混淆)
+## Terminology
 
-In V4.6.0 the review/inspect roles were renamed to match English semantics:
+V4.6.0 swapped the review/inspect role names to match English semantics; V4.7 keeps the same convention:
 
 | English | 中文 | Responsibility | Output |
 |---------|------|---------------|--------|
 | `reviewer` | 审查者 | review-stage quality gate — code, plan fidelity, security, TDD, UI quality; has BLOCK authority | `review.md` |
 | `inspector` | 监察者 | continuity auditor — observes team behavior throughout; zero interrupt authority | `activity-trace.md` checkpoints + `inspector/reports/*-report.md` |
+| `orchestrator` | 协调者 | seven-stage routing and gate decisions. **In V4.7 this role is the main Claude Code session**, not a subagent. | `current-run.json`, `mode.json`, `activity-trace.md`, `decision-log.md`, `spawn-log.jsonl` |
 
 ## License
 

@@ -1,0 +1,22 @@
+{
+  "name": "superteam",
+  "version": "4.7.1",
+  "description": "V4.7 main-session-as-orchestrator plus the V4.7.1 closeout fixes: active-subagent window now opens only for superteam:* specialists (non-SuperTeam subagents no longer give the main session a write bypass), corrupt/unknown-schema mode.json triggers a loud warning instead of a silent fall-through, and the missing /superteam:bypass slash command is now provided.",
+  "author": {
+    "name": "frankiezheng110"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "workflow",
+    "agent-team",
+    "planning",
+    "verification",
+    "tdd",
+    "hook-enforcement",
+    "frontend-aesthetics",
+    "ui-design"
+  ],
+  "homepage": "https://github.com/frankiezheng110/superteam"
+}
