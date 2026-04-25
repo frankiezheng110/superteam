@@ -2,7 +2,7 @@
 
 Seven-stage delivery plugin for [Claude Code](https://claude.com/claude-code) with **hook-level hard constraints** and a **main-session-as-orchestrator** trust chain — so delivery quality no longer depends on AI self-discipline.
 
-**Version**: 4.7.1
+**Version**: 4.7.2
 **License**: MIT
 
 ---
@@ -19,12 +19,17 @@ V4.7 moves the OR role to the **main Claude Code session**, the only layer that 
 - SessionStart and UserPromptSubmit hooks reinject an OR identity banner on every user message, surviving auto-compact, usage-limit pause, and unexpected session resume.
 - Three new slash commands: `/superteam:go [task]`, `/superteam:end`, `/superteam:bypass <reason>`. `/superteam:status` is upgraded to surface mode + recent spawns + recent gate violations.
 
-V4.7.1 (this release) is a four-item closeout fix on V4.7.0:
+V4.7.1 was a four-item closeout fix on V4.7.0:
 
 1. The active-subagent window now opens **only** for `superteam:*` specialists (V4.7.0 leaked the bypass to any subagent).
 2. Corrupt or unknown-schema `mode.json` triggers a loud warning instead of a silent fall-through.
 3. The missing `/superteam:bypass` slash-command skill was added (CLI was already there).
 4. Repo-root metadata (this README, `CLAUDE.md`, `VERSION.md`) is brought back in sync with the active plugin version.
+
+V4.7.2 (this release) adds two patches that close the remaining V4.7 coverage gaps surfaced in real use:
+
+1. **Stop hook blocks main-session OR self-stop.** Before V4.7.2 the four hook defenses (SessionStart banner / UserPromptSubmit banner / PreToolUse file gate / spawn-log) were all on the tool/event layer. The OR could end its response with prose and no `Agent` call, and nothing caught it. V4.7.2 adds a Stop-hook check: if `mode=active` and `current_stage` is execute/review/verify/finish and the main session did not spawn anything in the current turn, the Stop event is blocked with a reason that points the OR at the next required specialist. `stop_hook_active=true` is honored to avoid infinite loops.
+2. **Specialist subagents get MCP tool whitelists.** V4.7.0/V4.7.1 specialists declared an explicit `tools` frontmatter, which under Claude Code's semantics *restricts* the subagent to only those tools — so MCP tools were excluded. V4.7.2 adds wildcard MCP whitelists per role: `designer/architect/executor` can use pencil, chrome-devtools, playwright, context7; `verifier/reviewer/debugger/test-engineer` get chrome-devtools and playwright; `researcher/architect` get context7 and (researcher) gpt-researcher plus WebFetch/WebSearch.
 
 V4.6's hook strictness is preserved: TDD red/green state machine, plan MUST accounting, commit gate, polish layer, inspector continuity. V4.7 only adds the OR identity dimension on top.
 
@@ -60,7 +65,7 @@ Upgrade:
 .
 ├── .claude-plugin/
 │   └── marketplace.json                # marketplace manifest (points to active version source)
-├── V4.7.1_主会话OR收口修复/             # active plugin source
+├── V4.7.2_Stop_hook与MCP工具白名单/    # active plugin source
 │   ├── .claude-plugin/plugin.json
 │   ├── agents/                         # specialist subagents (orchestrator subagent is DEPRECATED)
 │   ├── framework/                      # contracts incl. main-session-orchestrator.md

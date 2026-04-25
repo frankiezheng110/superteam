@@ -1,0 +1,22 @@
+{
+  "name": "superteam",
+  "version": "4.7.2",
+  "description": "V4.7 main-session-as-orchestrator with the V4.7.2 conversation-flow + tool-set patches: Stop hook blocks main-session self-stop in execute/review/verify/finish stages when no specialist was spawned this turn, closing the V4.7.0/V4.7.1 coverage gap on the conversation-flow layer; specialist subagents (designer/architect/executor/verifier/reviewer/researcher/debugger/test-engineer) get MCP tool whitelists (pencil / chrome-devtools / playwright / context7 / gpt-researcher) so they can use the MCP servers the user has installed.",
+  "author": {
+    "name": "frankiezheng110"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "workflow",
+    "agent-team",
+    "planning",
+    "verification",
+    "tdd",
+    "hook-enforcement",
+    "frontend-aesthetics",
+    "ui-design"
+  ],
+  "homepage": "https://github.com/frankiezheng110/superteam"
+}

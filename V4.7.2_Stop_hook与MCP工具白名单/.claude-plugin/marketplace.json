@@ -1,0 +1,15 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "superteam-local",
+  "description": "SuperTeam local plugin marketplace",
+  "owner": {
+    "name": "local"
+  },
+  "plugins": [
+    {
+      "name": "superteam",
+      "description": "Project delivery control layer with seven-stage discipline and structured agent-team collaboration",
+      "source": "."
+    }
+  ]
+}

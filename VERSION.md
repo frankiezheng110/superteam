@@ -1,12 +1,13 @@
 # SuperTeam Version Index
 
-**Current**: V4.7.1 — see `V4.7.1_主会话OR收口修复/VERSION.md` for the full release notes.
+**Current**: V4.7.2 — see `V4.7.2_Stop_hook与MCP工具白名单/VERSION.md` for the full release notes.
 
 ## Release timeline
 
 | Version | Date | One-liner |
 |---|---|---|
-| **V4.7.1** | 2026-04-25 | V4.7 closeout: active-subagent window restricted to `superteam:*`, corrupt mode.json now warns loudly, `/superteam:bypass` skill added, repo-root metadata resynced. |
+| **V4.7.2** | 2026-04-25 | V4.7 conversation-flow + tool-set patches: Stop hook blocks main-session self-stop in execute-class stages when no specialist was spawned this turn; specialist subagents (designer/architect/executor/verifier/reviewer/researcher/debugger/test-engineer) get MCP tool whitelists (pencil/chrome-devtools/playwright/context7/gpt-researcher). |
+| V4.7.1 | 2026-04-25 | V4.7 closeout: active-subagent window restricted to `superteam:*`, corrupt mode.json now warns loudly, `/superteam:bypass` skill added, repo-root metadata resynced. |
 | V4.7.0 | 2026-04-25 | Architectural — moves Orchestrator from subagent to main Claude Code session; adds `mode.json` state machine, `gate_main_session_scope`, `spawn-log.jsonl`, `/superteam:end` and revamped `/superteam:go` / `/superteam:status`. Disk-enforced trust chain. |
 | V4.6.4 | 2026-04-24 | Hotfix — TDD state-machine init deadlock: `_maybe_init_active_feature` derives `active_feature_id` from `execution.md` in PostToolUse. |
 | V4.6.3 | 2026-04-24 | Hotfix — anchor hook resolution to `$CLAUDE_PROJECT_DIR` instead of `os.getcwd()` so unrelated sessions never trigger SuperTeam Stop hook. |

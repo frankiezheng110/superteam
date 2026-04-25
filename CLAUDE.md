@@ -1,4 +1,4 @@
-# SuperTeam V4.7.1
+# SuperTeam V4.7.2
 
 ## 定位
 
@@ -18,6 +18,8 @@ V4.7 起：
 详见当前版本目录下的 `framework/main-session-orchestrator.md`。`agents/orchestrator.md` subagent 已 DEPRECATED · 仅为 V4.6 兼容保留。
 
 V4.7.1 是 V4.7.0 的收口修复（active-subagent 仅 superteam:* / corrupt mode.json 显式告警 / 补 `/superteam:bypass` skill / 同步根目录元数据）。
+
+V4.7.2 加两件事：(1) **Stop hook 拦截 OR 自停** — `mode=active` + `current_stage∈{execute,review,verify,finish}` + 本轮无 spawn → block stop + 强制 OR 推进，关闭 V4.7.0/V4.7.1 在对话流层的覆盖盲区；(2) **specialist MCP 工具白名单** — designer/architect/executor/verifier/reviewer/researcher/debugger/test-engineer 加上 pencil/chrome-devtools/playwright/context7/gpt-researcher 白名单，让 specialist 真能用上 MCP server。
 
 ## 核心原则
 
@@ -64,7 +66,7 @@ GitHub marketplace 安装：
 /reload-plugins
 ```
 
-当前插件源（marketplace.json `plugins[0].source`）：`./V4.7.1_主会话OR收口修复`。
+当前插件源（marketplace.json `plugins[0].source`）：`./V4.7.2_Stop_hook与MCP工具白名单`。
 
 ## 运行时产物
 
