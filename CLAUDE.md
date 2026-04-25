@@ -1,4 +1,4 @@
-# SuperTeam V4.7.2
+# SuperTeam V4.7.3
 
 ## 定位
 
@@ -20,6 +20,8 @@ V4.7 起：
 V4.7.1 是 V4.7.0 的收口修复（active-subagent 仅 superteam:* / corrupt mode.json 显式告警 / 补 `/superteam:bypass` skill / 同步根目录元数据）。
 
 V4.7.2 加两件事：(1) **Stop hook 拦截 OR 自停** — `mode=active` + `current_stage∈{execute,review,verify,finish}` + 本轮无 spawn → block stop + 强制 OR 推进，关闭 V4.7.0/V4.7.1 在对话流层的覆盖盲区；(2) **specialist MCP 工具白名单** — designer/architect/executor/verifier/reviewer/researcher/debugger/test-engineer 加上 pencil/chrome-devtools/playwright/context7/gpt-researcher 白名单，让 specialist 真能用上 MCP server。
+
+V4.7.3 把 PLAN Tier A 三件套补完：(1) **gate_stage_advance** 拦 `.superteam/state/current-run.json` 的违规推进 — execute→review 必须先有 executor spawn + execution.md，review→verify 必须先有 reviewer spawn + review.md，verify→finish 必须先有 verifier spawn + verification.md 且 verdict=PASS；(2) **validator_frontmatter** 校验所有 specialist 产物（review.md/verify.md/polish.md/final.md/finish.md/retrospective.md/execution.md/test-plan.md）头部 frontmatter — 缺失则用 active-subagent.json 自动补，伪造（agent_id 不在 spawn-log）则写 gate-violations.jsonl 审计。"理性化绕过"剩余三条路径（自停/跳阶段/伪造产物）全部 hook 化。
 
 ## 核心原则
 
@@ -66,7 +68,7 @@ GitHub marketplace 安装：
 /reload-plugins
 ```
 
-当前插件源（marketplace.json `plugins[0].source`）：`./V4.7.2_Stop_hook与MCP工具白名单`。
+当前插件源（marketplace.json `plugins[0].source`）：`./V4.7.3_stage推进gate与产物校验`。
 
 ## 运行时产物
 

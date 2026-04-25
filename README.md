@@ -2,7 +2,7 @@
 
 Seven-stage delivery plugin for [Claude Code](https://claude.com/claude-code) with **hook-level hard constraints** and a **main-session-as-orchestrator** trust chain — so delivery quality no longer depends on AI self-discipline.
 
-**Version**: 4.7.2
+**Version**: 4.7.3
 **License**: MIT
 
 ---
@@ -26,10 +26,17 @@ V4.7.1 was a four-item closeout fix on V4.7.0:
 3. The missing `/superteam:bypass` slash-command skill was added (CLI was already there).
 4. Repo-root metadata (this README, `CLAUDE.md`, `VERSION.md`) is brought back in sync with the active plugin version.
 
-V4.7.2 (this release) adds two patches that close the remaining V4.7 coverage gaps surfaced in real use:
+V4.7.2 added two patches that closed the conversation-flow + tool-set gaps:
 
 1. **Stop hook blocks main-session OR self-stop.** Before V4.7.2 the four hook defenses (SessionStart banner / UserPromptSubmit banner / PreToolUse file gate / spawn-log) were all on the tool/event layer. The OR could end its response with prose and no `Agent` call, and nothing caught it. V4.7.2 adds a Stop-hook check: if `mode=active` and `current_stage` is execute/review/verify/finish and the main session did not spawn anything in the current turn, the Stop event is blocked with a reason that points the OR at the next required specialist. `stop_hook_active=true` is honored to avoid infinite loops.
 2. **Specialist subagents get MCP tool whitelists.** V4.7.0/V4.7.1 specialists declared an explicit `tools` frontmatter, which under Claude Code's semantics *restricts* the subagent to only those tools — so MCP tools were excluded. V4.7.2 adds wildcard MCP whitelists per role: `designer/architect/executor` can use pencil, chrome-devtools, playwright, context7; `verifier/reviewer/debugger/test-engineer` get chrome-devtools and playwright; `researcher/architect` get context7 and (researcher) gpt-researcher plus WebFetch/WebSearch.
+
+V4.7.3 (this release) closes the remaining two PLAN Tier A holes — together with V4.7.2 it makes "rationalization-bypass" (self-stop / stage-skip / artifact-forge) hook-blocked in all three forms:
+
+1. **PreToolUse `gate_stage_advance` blocks illegitimate `current_stage` advances.** When the main session edits `.superteam/state/current-run.json` to bump `current_stage`, the hook diffs the proposed value and refuses transitions whose preconditions are not on disk: `review` requires a `superteam:executor` spawn-log entry plus `execution.md`; `verify` requires `superteam:reviewer` plus `review.md`; `finish` requires `superteam:verifier` plus `verification.md` carrying `verdict: PASS`. The clarify→design→plan→execute transitions remain governed by V4.6's existing G1/G2/G3 user-approval gates.
+2. **PostToolUse `validator_frontmatter` audits specialist artifact provenance.** Every write to `review.md` / `verify.md` / `verification.md` / `polish.md` / `final.md` / `finish.md` / `retrospective.md` / `execution.md` / `test-plan.md` is checked for an `agent_type` + `agent_id` + `task_slug` YAML frontmatter whose `agent_id` is present in `spawn-log.jsonl` and whose `agent_type` matches the file's expected role. Missing frontmatter is auto-stamped from `active-subagent.json` (content is preserved). Forged frontmatter (agent_id not in spawn-log, or agent_type mismatch) is logged to `.superteam/state/gate-violations.jsonl` and surfaced in `/superteam:status` and finish-stage audit. (V4.7.3 logs only — destructive enforcement is reserved for a later strict-mode opt-in.)
+
+The 9 watched specialists (reviewer, verifier, writer, executor, simplifier, doc-polisher, release-curator, test-engineer, inspector) now carry an "Output Frontmatter" section in their `agents/<role>.md` so they emit the frontmatter explicitly rather than relying on hook auto-stamp.
 
 V4.6's hook strictness is preserved: TDD red/green state machine, plan MUST accounting, commit gate, polish layer, inspector continuity. V4.7 only adds the OR identity dimension on top.
 
@@ -65,7 +72,7 @@ Upgrade:
 .
 ├── .claude-plugin/
 │   └── marketplace.json                # marketplace manifest (points to active version source)
-├── V4.7.2_Stop_hook与MCP工具白名单/    # active plugin source
+├── V4.7.3_stage推进gate与产物校验/      # active plugin source
 │   ├── .claude-plugin/plugin.json
 │   ├── agents/                         # specialist subagents (orchestrator subagent is DEPRECATED)
 │   ├── framework/                      # contracts incl. main-session-orchestrator.md

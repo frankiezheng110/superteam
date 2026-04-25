@@ -1,0 +1,22 @@
+{
+  "name": "superteam",
+  "version": "4.7.3",
+  "description": "V4.7 main-session-as-orchestrator with the PLAN Tier A close-out. V4.7.3 adds the remaining two trust-chain hooks: (A2) PreToolUse gate_stage_advance blocks current-run.json edits that bump current_stage past spawn-log/artifact preconditions (review needs executor+execution.md, verify needs reviewer+review.md, finish needs verifier+verification.md+verdict=PASS); (A3) PostToolUse validator_frontmatter checks specialist artifacts (review.md/verify.md/verification.md/polish.md/final.md/finish.md/retrospective.md/execution.md/test-plan.md) for agent_type+agent_id+task_slug frontmatter matching spawn-log.jsonl, auto-stamping when absent and logging gate-violations on forgery. Together with V4.7.0 (mode.json + main-session write gate + spawn-log) / V4.7.1 (corrupt-mode warning + bypass) / V4.7.2 (Stop-hook + MCP whitelists), Tier A is now complete: self-stop / stage-skip / artifact-forge are all hook-blocked.",
+  "author": {
+    "name": "frankiezheng110"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "workflow",
+    "agent-team",
+    "planning",
+    "verification",
+    "tdd",
+    "hook-enforcement",
+    "frontend-aesthetics",
+    "ui-design"
+  ],
+  "homepage": "https://github.com/frankiezheng110/superteam"
+}

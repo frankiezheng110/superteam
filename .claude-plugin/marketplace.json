@@ -8,7 +8,7 @@
   "metadata": {
     "name": "SuperTeam",
     "description": "Seven-stage delivery plugin with main-session-as-orchestrator architecture and hook-enforced trust chain",
-    "version": "4.7.2",
+    "version": "4.7.3",
     "author": {
       "name": "frankiezheng110",
       "url": "https://github.com/frankiezheng110"
@@ -17,8 +17,8 @@
   "plugins": [
     {
       "name": "superteam",
-      "source": "./V4.7.2_Stop_hook与MCP工具白名单",
-      "description": "V4.7 main-session-as-orchestrator with V4.7.2 conversation-flow + tool-set patches. Stop hook now blocks main-session self-stop in execute/review/verify/finish stages when no specialist was spawned this turn — closes the V4.7.0/V4.7.1 coverage gap on the conversation-flow layer. Specialists (designer/architect/executor/verifier/reviewer/researcher/debugger/test-engineer) get MCP tool whitelists (pencil/chrome-devtools/playwright/context7/gpt-researcher) so they can use the MCP servers the user has installed."
+      "source": "./V4.7.3_stage推进gate与产物校验",
+      "description": "V4.7 PLAN Tier A close-out. V4.7.3 closes the last two trust-chain holes: (A2) PreToolUse gate_stage_advance blocks current-run.json edits that bump current_stage past spawn-log/artifact preconditions; (A3) PostToolUse validator_frontmatter checks every specialist artifact (review.md/verify.md/polish.md/final.md/etc.) for an agent_type+agent_id+task_slug frontmatter that matches spawn-log.jsonl, auto-stamping when absent and logging gate-violations on forgery. Together with V4.7.0/V4.7.1/V4.7.2, the three rationalization-bypass routes — self-stop, stage-skip, artifact-forge — are all hook-blocked. AI self-discipline is compressed to genuinely-semantic decisions only."
     }
   ]
 }
