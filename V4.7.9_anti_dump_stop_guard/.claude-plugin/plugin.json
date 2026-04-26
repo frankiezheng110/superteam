@@ -1,0 +1,22 @@
+{
+  "name": "superteam",
+  "version": "4.7.9",
+  "description": "V4.7.9 anti-dump self-stop guard + ≥4 threshold loop valve · 修 V4.7.7 stop.py L44 stop_hook_active 1-strike 放行漏洞 (V4.7.7 transcripts 实测 OR self-stop 被漏洞放行率约 79%)。改造方案: (1) 引入 is_project_alive() 单 bit accessor, hook 只读一个布尔; (2) paused 也 BLOCK (V4.7.7 半门关闭, 仅 ended 是合法退出); (3) hook BLOCK reason 升级为强引导 5 要素 (标识/硬约束/禁止/读 plan 推进/唯一退出 /superteam:end); (4) stop_hook_active 由 1-strike 放行改为 ≥4 阈值 valve, 前 3 次循环 BLOCK 给 OR 修正机会, 第 4 次方触发救命阀; (5) fail-closed 双层 try/except 兜底 hook 内部 bug 不会变成 OR 停止授权; (6) AST purity test BANNED 字符串 lifecycle 防回潮; (7) mode_state 新增 stop_block_count / bump / reset 计数 API。承袭 V4.7.8 plugin.json 修复, V4.7.6 兼容层, V4.7.5 状态机文件 BLOCK 列表。",
+  "author": {
+    "name": "frankiezheng110"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "workflow",
+    "agent-team",
+    "planning",
+    "verification",
+    "tdd",
+    "hook-enforcement",
+    "frontend-aesthetics",
+    "ui-design"
+  ],
+  "homepage": "https://github.com/frankiezheng110/superteam"
+}
