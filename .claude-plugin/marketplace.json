@@ -8,7 +8,7 @@
   "metadata": {
     "name": "SuperTeam",
     "description": "Seven-stage delivery plugin with main-session-as-orchestrator architecture and hook-enforced trust chain",
-    "version": "4.7.7",
+    "version": "4.7.8",
     "author": {
       "name": "frankiezheng110",
       "url": "https://github.com/frankiezheng110"
@@ -17,8 +17,8 @@
   "plugins": [
     {
       "name": "superteam",
-      "source": "./V4.7.7_状态机正确性",
-      "description": "V4.7.7 真状态机 · stop hook 单字段判定 mode.json.project_lifecycle ∈ {running,paused,ended}。删除 V4.7.5 stop 三条件判定中的 stage 和 is_subagent_running 启发式（二者描述瞬时进度而非项目生命周期，不属状态机概念）。新增 /superteam:pause + /superteam:resume 命令，明确暂停与结束两种退出语义。SessionStart hook 自动迁移老 mode.json（按 mode/ended_at 推断 project_lifecycle）。新增 AST 纯净性测试防止瞬时字段进 stop 判定的回潮。完全保留 V4.7.6 三个兼容层补丁（多文件 plan/ + slug 双源 + verify.md 命名）以及 V4.7.5 状态机文件 BLOCK 列表 / gate_stage_advance / stop_finish_guard。76/76 测试全绿（45 V4.6 e2e + 15 V4.7.5 baseline + 7 V4.7.6 兼容 + 2 V4.7.7 AST 纯净 + 7 V4.7.7 lifecycle 行为）。"
+      "source": "./V4.7.8_plugin_json修复",
+      "description": "V4.7.8 hotfix · 修 V4.7.7 plugin.json description 内嵌 ASCII 双引号截断 JSON 致整插件 manifest 解析失败 (Claude Code 报 Unrecognized token, 0 hooks 加载, 8 agents 失活)。仅改 plugin.json 文本内容, 代码与 V4.7.7 逐字节一致。继承 V4.7.7 真状态机收口 (stop hook 单字段判定 mode.json.project_lifecycle 三态 · 删除 stage 和 is_subagent_running 启发式 · 新增 /superteam:pause + /superteam:resume · SessionStart 自动迁移老 mode.json · AST 纯净性测试防回潮) 与 V4.7.6 三个兼容层补丁 (多文件 plan/ + slug 双源 + verify.md 命名) 和 V4.7.5 状态机文件 BLOCK 列表 / gate_stage_advance / stop_finish_guard。76/76 测试全绿。"
     }
   ]
 }
