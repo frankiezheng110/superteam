@@ -8,7 +8,7 @@
   "metadata": {
     "name": "SuperTeam",
     "description": "Seven-stage delivery plugin with main-session-as-orchestrator architecture and hook-enforced trust chain",
-    "version": "4.7.6",
+    "version": "4.7.7",
     "author": {
       "name": "frankiezheng110",
       "url": "https://github.com/frankiezheng110"
@@ -17,8 +17,8 @@
   "plugins": [
     {
       "name": "superteam",
-      "source": "./V4.7.6_V475回归修复",
-      "description": "V4.7.6 修 V4.7.5 三个 hook 回归 — 不动 V4.7.5 OR self-stop 核心机制（状态机三条件判定 / 删除逃生暗门 / 状态机文件 BLOCK 列表全保留），仅在兼容层补三处缺口: (1) validator_plan 兼容多文件 plan/ 目录（V4.6 结构）— 没 plan.md 就读 plan/*.md 聚合后走相同字段/Tier/MUST/TDD 检查; (2) state.current_slug() 优先 mode.json.active_task_slug, fallback current-run.json.task_slug — 解决 V4.6→V4.7 升级项目两值漂移; (3) gate_stage_advance finish 阶段同时接受 verify.md 和 verification.md。69/69 测试全绿（V4.7.5 62 + V4.7.6 7 兼容性回归）。完全向后兼容: 不删除任何 V4.7.5 检查 / 不放宽任何 V4.7.5 拦截 / 仅扩大合规输入识别范围。"
+      "source": "./V4.7.7_状态机正确性",
+      "description": "V4.7.7 真状态机 · stop hook 单字段判定 mode.json.project_lifecycle ∈ {running,paused,ended}。删除 V4.7.5 stop 三条件判定中的 stage 和 is_subagent_running 启发式（二者描述瞬时进度而非项目生命周期，不属状态机概念）。新增 /superteam:pause + /superteam:resume 命令，明确暂停与结束两种退出语义。SessionStart hook 自动迁移老 mode.json（按 mode/ended_at 推断 project_lifecycle）。新增 AST 纯净性测试防止瞬时字段进 stop 判定的回潮。完全保留 V4.7.6 三个兼容层补丁（多文件 plan/ + slug 双源 + verify.md 命名）以及 V4.7.5 状态机文件 BLOCK 列表 / gate_stage_advance / stop_finish_guard。76/76 测试全绿（45 V4.6 e2e + 15 V4.7.5 baseline + 7 V4.7.6 兼容 + 2 V4.7.7 AST 纯净 + 7 V4.7.7 lifecycle 行为）。"
     }
   ]
 }

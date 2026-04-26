@@ -1,0 +1,22 @@
+{
+  "name": "superteam",
+  "version": "4.7.7",
+  "description": "V4.7.7 真状态机 · stop hook 单字段判定 mode.json.project_lifecycle ∈ {running,paused,ended}。删除 V4.7.5 stop 三条件判定中的 stage 和 is_subagent_running 启发式（二者描述瞬时进度而非项目生命周期，不属状态机概念）。新增 /superteam:pause + /superteam:resume 命令，明确"暂停"与"结束"两种退出语义。SessionStart hook 自动迁移老 mode.json（按 mode/ended_at 推断 project_lifecycle）。新增 AST 纯净性测试防止瞬时字段进 stop 判定的回潮。完全保留 V4.7.6 三个兼容层补丁（多文件 plan/ + slug 双源 + verify.md 命名）以及 V4.7.5 状态机文件 BLOCK 列表 / gate_stage_advance / stop_finish_guard。",
+  "author": {
+    "name": "frankiezheng110"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "workflow",
+    "agent-team",
+    "planning",
+    "verification",
+    "tdd",
+    "hook-enforcement",
+    "frontend-aesthetics",
+    "ui-design"
+  ],
+  "homepage": "https://github.com/frankiezheng110/superteam"
+}
