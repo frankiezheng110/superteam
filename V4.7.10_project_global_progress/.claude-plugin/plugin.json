@@ -1,0 +1,22 @@
+{
+  "name": "superteam",
+  "version": "4.7.10",
+  "description": "V4.7.10 project 全局进度层 · 引入 .superteam/project.md 解决 phase finish 被误当 project end 的根本 bug (SMS phase-4-s3-module 走完 finish 流程后被误标 mode.lifecycle=ended, 但实际还有 V1.5+→V2.0.0 多个里程碑待做)。架构: 1 project 含 N milestone, 每个 milestone = 1 phase = 1 SuperTeam 工作流闭环。新增: (1) hooks/lib/project_state.py — read_project / is_project_active / mark_milestone_done / set_project_complete; (2) stop.py 双层判定 — project.md 在则用 is_project_active, 否则 fallback V4.7.9 mode_state.is_project_alive; (3) stop_finish_guard 注入 milestone hint — phase finish 标 milestone DONE, 不 mode end; (4) SessionStart 注入 project.md 全局视野; (5) mode_cli 新增 project-init / project-status / project-next / project-complete / reopen 子命令; (6) skills 加 project-init / project-status / project-next / project-complete / reopen; (7) AST purity test 允许 is_project_active / project_state; (8) 老项目无 project.md 完全向后兼容走 V4.7.9 行为。继承 V4.7.9 ≥4 阈值 valve / 5 要素强引导 reason / fail-closed try except / V4.7.6 兼容层 / V4.7.5 状态机文件 BLOCK 列表。",
+  "author": {
+    "name": "frankiezheng110"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "workflow",
+    "agent-team",
+    "planning",
+    "verification",
+    "tdd",
+    "hook-enforcement",
+    "frontend-aesthetics",
+    "ui-design"
+  ],
+  "homepage": "https://github.com/frankiezheng110/superteam"
+}

@@ -8,7 +8,7 @@
   "metadata": {
     "name": "SuperTeam",
     "description": "Seven-stage delivery plugin with main-session-as-orchestrator architecture and hook-enforced trust chain",
-    "version": "4.7.9",
+    "version": "4.7.10",
     "author": {
       "name": "frankiezheng110",
       "url": "https://github.com/frankiezheng110"
@@ -17,8 +17,8 @@
   "plugins": [
     {
       "name": "superteam",
-      "source": "./V4.7.9_anti_dump_stop_guard",
-      "description": "V4.7.9 anti-dump self-stop guard + ≥4 threshold loop valve · 修 V4.7.7 stop_hook_active 1-strike 漏洞 (实测漏洞放行率 79%)。改造: (1) is_project_alive() 单 bit accessor; (2) paused 也 BLOCK 仅 ended 是合法退出; (3) 5 要素强引导 reason (标识/硬约束/禁止/读 plan 推进/唯一退出); (4) ≥4 阈值 valve 取代 1-strike 放行, 前 3 次给 OR 修正机会, 第 4 次方触发 case-3 救命阀, 比 60s timeout 更确定不受网络/IO 干扰; (5) fail-closed 双层 try/except; (6) AST purity test BANNED project_lifecycle 字符串防多值比较回潮; (7) mode_state stop_block_count API。承袭 V4.7.8 plugin.json 修复, V4.7.6 兼容层, V4.7.5 状态机文件 BLOCK 列表。25 cases + 5-round end-to-end demo + real LLM behavior test 全绿。"
+      "source": "./V4.7.10_project_global_progress",
+      "description": "V4.7.10 project 全局进度层 · 引入 .superteam/project.md 解决 phase finish 被误当 project end 的根本 bug (SMS phase-4-s3-module 走完 finish 后被误标 mode.lifecycle=ended, 但实际还有 V1.5+→V2.0.0 多个里程碑待做)。架构: 1 project 含 N milestone, 每个 milestone = 1 phase = 1 SuperTeam 工作流闭环。新增: hooks/lib/project_state.py (frontmatter + 表格解析) · stop.py 双层判定 (project.md 在则用 is_project_active 否则 fallback V4.7.9 mode_state.is_project_alive) · stop_finish_guard 自动标 milestone DONE · SessionStart 注入 project banner · mode_cli 新增 project-init / project-status / project-next / project-complete / reopen 子命令 · 5 个对应 skill。无 project.md 老项目完全向后兼容走 V4.7.9 行为。继承 V4.7.9 ≥4 阈值 valve / 5 要素强引导 reason / fail-closed try except / V4.7.6 兼容层 / V4.7.5 状态机文件 BLOCK 列表。95/95 测试全绿 (45 V4.6 e2e + 15 V4.7.5 baseline + 7 V4.7.6 兼容 + 8 V4.7.7 lifecycle + 2 V4.7.7 AST 纯净 + 18 V4.7.10 project layer)。"
     }
   ]
 }
