@@ -1,0 +1,22 @@
+{
+  "name": "superteam",
+  "version": "5.0.0",
+  "description": "V5.0 全局工作进度视图 · 疏不堵 · 用单一聚合层 + 物理硬约束注入解决 OR 套娃误判问题。设计哲学: 不再加 gate 围堵套娃路径 (那只会引入新边缘), 而是让 OR 每个 turn 物理上必读完整层级进度 (project → milestone → phase → stage → MUST → feature)。新增 hooks/lib/global_progress.py 聚合 5 个真相源 (project.md / mode.json / current-run.json / plan-progress / feature-tdd-state) 渲染统一进度 banner。SessionStart + UserPromptSubmit hook 在 OR 输入流强制注入 banner — 不是建议读, 是物理写进 prompt。OR 一眼看见 V1-V7 中自己在 V6 phase4 execute 阶段还有 8/14 MUST 未完成, 结构上不会把 V6 当整体结束项目。零新 gate / 零文件迁移 / 零状态机改动, 现有 5 个状态文件保持向后兼容, 老项目无感升级。继承 V4.7.10 project 层 / V4.7.9 ≥4 阈值 valve / V4.7.6 兼容层 / V4.7.5 状态机 BLOCK 列表所有物理保护。",
+  "author": {
+    "name": "frankiezheng110"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "workflow",
+    "agent-team",
+    "planning",
+    "verification",
+    "tdd",
+    "hook-enforcement",
+    "frontend-aesthetics",
+    "ui-design"
+  ],
+  "homepage": "https://github.com/frankiezheng110/superteam"
+}

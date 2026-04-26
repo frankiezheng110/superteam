@@ -8,7 +8,7 @@
   "metadata": {
     "name": "SuperTeam",
     "description": "Seven-stage delivery plugin with main-session-as-orchestrator architecture and hook-enforced trust chain",
-    "version": "4.7.10",
+    "version": "5.0.0",
     "author": {
       "name": "frankiezheng110",
       "url": "https://github.com/frankiezheng110"
@@ -17,8 +17,8 @@
   "plugins": [
     {
       "name": "superteam",
-      "source": "./V4.7.10_project_global_progress",
-      "description": "V4.7.10 project 全局进度层 · 引入 .superteam/project.md 解决 phase finish 被误当 project end 的根本 bug (SMS phase-4-s3-module 走完 finish 后被误标 mode.lifecycle=ended, 但实际还有 V1.5+→V2.0.0 多个里程碑待做)。架构: 1 project 含 N milestone, 每个 milestone = 1 phase = 1 SuperTeam 工作流闭环。新增: hooks/lib/project_state.py (frontmatter + 表格解析) · stop.py 双层判定 (project.md 在则用 is_project_active 否则 fallback V4.7.9 mode_state.is_project_alive) · stop_finish_guard 自动标 milestone DONE · SessionStart 注入 project banner · mode_cli 新增 project-init / project-status / project-next / project-complete / reopen 子命令 · 5 个对应 skill。无 project.md 老项目完全向后兼容走 V4.7.9 行为。继承 V4.7.9 ≥4 阈值 valve / 5 要素强引导 reason / fail-closed try except / V4.7.6 兼容层 / V4.7.5 状态机文件 BLOCK 列表。95/95 测试全绿 (45 V4.6 e2e + 15 V4.7.5 baseline + 7 V4.7.6 兼容 + 8 V4.7.7 lifecycle + 2 V4.7.7 AST 纯净 + 18 V4.7.10 project layer)。"
+      "source": "./V5.0_global_progress",
+      "description": "V5.0 全局工作进度视图 · 疏不堵 · 物理硬约束 OR 必读全局视野。设计哲学转向: 不再加新 gate 围堵套娃路径 (V4.7.5→V4.7.10 五次修补堆叠的教训), 改为让 OR 物理上每个 turn 必读完整层级进度 — banner 由 hook 写进 prompt 输入流, 不是建议读不是 tool 调用, 决策链外触发无法跳过。新增 hooks/lib/global_progress.py 聚合 5 个真相源 (project.md / mode.json / current-run.json / plan-progress / feature-tdd-state) 渲染统一层级 banner: 进度条 + milestone roadmap + 你在这里 marker + closing directive。SessionStart + UserPromptSubmit 双挂点物理强制注入 — OR 一眼看见 V1-V7 中自己在 V6 phase4 execute 阶段还有 V7 PENDING, 结构上不会把 V6 当整体结束项目。零状态文件迁移, 5 个原状态文件保持原样, 只新增只读聚合层。完全保留 V4.7.10 project layer / V4.7.9 ≥4 阈值 valve / V4.7.6 兼容层 / V4.7.5 BLOCK 列表所有物理保护, 不削减任何 hook。124/124 测试全绿 (88 既有 + 13 V5.0 banner 含 N1-N3 套娃端到端 + 16 V5.0 全 8 hook 健康检查 + F1-F4 强制读取边缘场景)。"
     }
   ]
 }
